@@ -1,15 +1,13 @@
 
-class Disk {
-
-    private int id; //
-    private String[] folders;
 class Disk implements ComparableDisk {
     private final int totalSpace = 1000000;
-    // private int id; // disk's id
+    private static int idCounter = 0; // idCounter
     private String folders[]; // folders array
+    final int id = idCounter++; // disk's id
 
     /** @return total free space in */
     public int getFreeSpace() {
+
         return totalSpace - folders.length;
     }
 
@@ -26,20 +24,12 @@ class Disk implements ComparableDisk {
     public static void main(String[] args) {
 
         Disk disk = new Disk();
-        System.out.println(disk.getFreeSpace());
-        disk.folders[1] = "java";
+        disk.folders = new String[1];
+        disk.folders[0] = "java";
+        System.out.println(disk.folders[0]);
         Disk disk2 = new Disk();
-        disk.compareTo(disk2);
-    }
-}
-
-public interface ComparableDisk {
-    public int compareTo(Disk b);
-}
-
-
-    /** @return total free space in */
-    public int getFreeSpace() {
-        return 0;
+        System.out.println(disk.id);
+        System.out.println(disk2.id);
+        // disk.compareTo(disk2);
     }
 }
