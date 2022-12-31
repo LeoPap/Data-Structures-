@@ -9,7 +9,7 @@ public interface QueueInterface {
      * 
      * @param item the item to insert.
      */
-    void enqueue(Object item, int itemSize);
+    void enqueue(Object item);
 
     /**
      * Return and remove the least recently inserted item
@@ -30,4 +30,6 @@ public interface QueueInterface {
     void printQueue();
 
     int getItemSizeSum();
+
+    int addAll();
 }

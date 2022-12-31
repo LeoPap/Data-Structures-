@@ -28,7 +28,7 @@ public class ArrayQueue implements QueueInterface {
      * the order, and replace "front" and "back" pointers, as necessary.
      */
 
-    private Object[] queueContents; // the array to hold the queue data
+    private int[] queueContents; // the array to hold the queue data
 
     private int size; // number of enqueued items
     private int itemSizeSum = 0;
@@ -42,10 +42,19 @@ public class ArrayQueue implements QueueInterface {
      * Initialize the queue
      */
     public ArrayQueue() {
-        queueContents = new Object[DEFAULT_CAPACITY];
+        queueContents = new int[DEFAULT_CAPACITY];
         front = 0;
         back = -1;
         size = 0;
+    }
+
+    public int addAll() {
+        int sum = 0;
+        for (int i = 0; i < queueContents.length; i++) {
+            sum += queueContents[i];
+
+        }
+        return sum;
     }
 
     /**
@@ -54,13 +63,13 @@ public class ArrayQueue implements QueueInterface {
      * @param item the item to insert.
      */
     @Override
-    public void enqueue(Object item, int itemSize) {
+    public void enqueue(Object item) {
         if (size == queueContents.length)
             growQueue();
 
         back = positionAfter(back);
-        queueContents[back] = item;
-        itemSizeSum += itemSize;
+        queueContents[back] = (int) item;
+
         size += 1;
     }
 
@@ -114,7 +123,7 @@ public class ArrayQueue implements QueueInterface {
      * Increases the maximum capacity of the queue base on AUTOGROW_SIZE
      */
     private void growQueue() {
-        Object[] newContents = new Object[queueContents.length + AUTOGROW_SIZE];
+        int[] newContents = new int[queueContents.length + AUTOGROW_SIZE];
 
         int current = front;
 
