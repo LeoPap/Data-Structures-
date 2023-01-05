@@ -38,30 +38,32 @@ public class Greedy {
             numberOfFiles += 1;
             sumOfAllFolders += fileMB;
             if (fileMB > 0 && fileMB < 1000000) {
-                if (disk.getFreeSpace(disk.getID()) >= fileMB) {
+                if (disk.getFreeSpace() >= fileMB) {
                     disk.addFile(fileMB);
                 } else {
 
                     disk = new Disk();
                     diskList.add(disk);
-                    numberOfDisks += 1;
-                    for (int id = 0; id < Disk.getNumberOfIDs(); id++) {
-                        if (disk.getFreeSpace(id) >= fileMB) {
-                            disk.addFile(fileMB);
 
+                    int id = 0;
+                    while (id < Disk.getNumberOfIDs()) {
+
+                        if (disk.getFreeSpace() >= fileMB) {
+                            disk.addFile(fileMB);
+                            break;
                         }
+                        id++;
                     }
-                    disk.addFile(fileMB);
 
                 }
             } else
                 System.exit(1);
 
         }
-        // System.out.println(MB.length);
-        // close scanner}
+
         sc.close();
         final float i = sumOfAllFolders;
+
         System.out.println("Sum of all folders = " + i / 1000000 + " TB");
 
         System.out.println("Total number of disks used = " + Disk.getNumberOfIDs());
@@ -70,7 +72,7 @@ public class Greedy {
         if (numberOfFiles <= 100) {
             while (diskList.peek() != null) {
                 Disk diskaki = (Disk) diskList.getMax();
-                System.out.print("id " + diskaki.id + " " + diskaki.getFreeSpace(diskaki.getID()) + ": ");
+                System.out.print("id " + diskaki.id + " " + diskaki.getFreeSpace() + ": ");
                 max = diskaki.folders.getMax();
                 while (max != null) {
                     System.out.print(max + " ");

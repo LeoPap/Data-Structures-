@@ -27,7 +27,7 @@ class Disk implements ComparableInterface<Disk>, Comparator<Object> {
     }
 
     /** @return total free space in */
-    public int getFreeSpace(int id) {
+    public int getFreeSpace() {
 
         return totalSpace - this.usedSpace;
     }
@@ -35,9 +35,9 @@ class Disk implements ComparableInterface<Disk>, Comparator<Object> {
     // compare this disk object to the given disk argument
     @Override
     public int compareTo(Disk diskB) {
-        if (this.getFreeSpace(id) > diskB.getFreeSpace(id))
+        if (this.getFreeSpace() > diskB.getFreeSpace())
             return 1;
-        else if (this.getFreeSpace(id) < diskB.getFreeSpace(id))
+        else if (this.getFreeSpace() < diskB.getFreeSpace())
             return -1;
         else
             return 0;
