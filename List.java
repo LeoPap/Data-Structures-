@@ -120,7 +120,7 @@ public class List<T> implements ListInterface<T> {
             return "List is empty :(";
         }
 
-        Node current = head;
+        Node<T> current = head;
 
         StringBuilder ret = new StringBuilder();
 

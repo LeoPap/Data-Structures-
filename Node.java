@@ -6,7 +6,7 @@
  */
 public class Node<T> {
     protected T data;
-    protected Node next = null;
+    protected Node<T> next = null;
 
     /**
      * Constructor. Sets data
