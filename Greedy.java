@@ -23,7 +23,7 @@ public class Greedy {
 
         // create new file object
         FileInputStream file = new FileInputStream(args[0]);
-
+        boolean newDisk = true;
         Scanner sc = new Scanner(file); // create a new scanner object
         Disk disk = new Disk();
         int sumOfAllFolders = 0; // Total sum of data used in all disks
@@ -38,30 +38,35 @@ public class Greedy {
             numberOfFiles += 1;
             sumOfAllFolders += fileMB;
             if (fileMB > 0 && fileMB < 1000000) {
-                if (disk.getFreeSpace() >= fileMB) {
-                    disk.addFile(fileMB);
-                } else {
+
+                int id = 0;
+                while (id < Disk.getNumberOfIDs()) {
+                    newDisk = true;
+                    if (disk.getFreeSpace() >= fileMB) {
+                        disk.addFile(fileMB);
+                        newDisk = false;
+                        break;
+                    }
+
+                    id++;
+                }
+                if (newDisk == true) {
 
                     disk = new Disk();
                     diskList.add(disk);
+                    if (disk.getFreeSpace() >= fileMB) {
+                        disk.addFile(fileMB);
 
-                    int id = 0;
-                    while (id < Disk.getNumberOfIDs()) {
-
-                        if (disk.getFreeSpace() >= fileMB) {
-                            disk.addFile(fileMB);
-                            break;
-                        }
-                        id++;
                     }
-
                 }
+
             } else
                 System.exit(1);
 
         }
 
         sc.close();
+
         final float i = sumOfAllFolders;
 
         System.out.println("Sum of all folders = " + i / 1000000 + " TB");
